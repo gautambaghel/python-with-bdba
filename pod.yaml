@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: Pod
+metadata:
+    name: python
+spec:
+    containers:
+      - name: python
+        image: gautambaghel/python:latest
+        resources:
+            requests:
+                cpu: 10m
+                memory: 256Mi
+        volumeMounts:
+          - name: jenkins-home
+            mountPath: /home/jenkins
+          - name: blackduck-shared-dir
+            mountPath: /opt/blackduck/shared
+    volumes:
+      - name: blackduck-shared-dir
+        hostPath:
+          path: /opt/blackduck/shared
+          type: DirectoryOrCreate
